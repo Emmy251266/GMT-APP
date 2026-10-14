@@ -1,0 +1,14 @@
+{
+  "name": "Gospel Mission Tabernacle Int'l",
+  "short_name": "GMT Church",
+  "description": "Member app for Gospel Mission Tabernacle Int'l",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0c0a09",
+  "theme_color": "#d42929",
+  "icons": [
+    { "src": "https://gmtinternationalchurch.vercel.app/images/3d49ab2c1202d97546a8ee8eabdb8dc4e959983e.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}

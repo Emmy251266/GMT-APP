@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="GMT">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#d42929">
+  <link rel="manifest" href="app.webmanifest">
+  <link rel="icon" href="https://gmtinternationalchurch.vercel.app/images/3d49ab2c1202d97546a8ee8eabdb8dc4e959983e.png">
+  <link rel="apple-touch-icon" href="https://gmtinternationalchurch.vercel.app/images/3d49ab2c1202d97546a8ee8eabdb8dc4e959983e.png">
+  <title>GMT Int'l Church</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+
+/* ---------- App base ---------- */
+*,*::before,*::after{box-sizing:border-box}
+*{margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent}
+body{background:#2b0508;color:#1c1c1c;font-family:'Poppins',system-ui,sans-serif;line-height:1.5;overflow-x:hidden;overscroll-behavior-y:none}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+input,select,textarea{font:inherit}
+[hidden]{display:none!important}
+:focus-visible{outline:2px solid #ce9c1f;outline-offset:3px}
+
+/* ---------- Member portal ---------- */
+body{background:#0c0a09}
+.pt-page{min-height:100svh;padding:calc(var(--header-h,100px) + clamp(16px,3vw,32px)) clamp(12px,3vw,32px) clamp(30px,5vw,60px);background:#0c0a09;color:#1c1c1c;font-family:'Poppins',sans-serif}
+.pt-wrap{max-width:960px;margin:0 auto}
+.pt-head{display:flex;align-items:center;gap:14px;padding:16px 18px;background:#fff;border-radius:14px;margin-bottom:12px}
+.pt-logo{width:54px;height:auto;flex:none}.pt-who{flex:1;min-width:0}
+.pt-who p{font-size:12px;color:#777}.pt-who h1{font:700 clamp(18px,3vw,26px)/1.2 'Poppins',sans-serif;color:#111;overflow-wrap:anywhere}
+.pt-out{padding:10px 16px;border:2px solid #cfcfcf;border-radius:6px;font:600 13px 'Poppins',sans-serif;color:#333}
+.pt-tabs{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 10px;scrollbar-width:thin}
+.pt-tabs button{position:relative;flex:none;padding:10px 16px;border-radius:999px;background:rgba(255,255,255,.12);color:#fff;font:600 13px 'Poppins',sans-serif;white-space:nowrap;transition:background .2s}
+.pt-tabs button:hover{background:rgba(255,255,255,.22)}.pt-tabs button.on{background:#fff;color:#d42929}
+.pt-tabs i{position:absolute;top:-4px;right:-2px;min-width:20px;padding:2px 5px;border-radius:99px;background:#ce9c1f;color:#111;font:700 11px/1.3 'Poppins',sans-serif;font-style:normal;text-align:center}.pt-tabs i[hidden]{display:none}
+.pt-view{display:grid;gap:14px;grid-template-columns:minmax(0,1fr)}
+.pt-card{padding:clamp(16px,3vw,28px);background:#fff;border-radius:14px;min-width:0}
+.pt-card h2{font:700 clamp(19px,2.6vw,24px)/1.2 'Poppins',sans-serif;color:#111}.pt-card h3{font:600 16px/1.35 'Poppins',sans-serif;color:#111;margin:4px 0}
+.pt-sub{margin:4px 0 14px;font-size:13px;color:#6b6b6b}.pt-meta{font-size:12.5px;color:#777;margin:2px 0 6px}.pt-body{font-size:14.5px;line-height:1.65;color:#333;white-space:pre-wrap;margin:6px 0 10px}.pt-clip{font-size:14px;color:#444;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;margin:4px 0}
+.pt-empty{padding:20px 6px;text-align:center;font-size:14px;color:#777}
+.pt-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}.pt-grid .pt-card{border-top:4px solid #ce9c1f}
+.pt-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:2px 0 4px}.pt-stats div{padding:12px 14px;background:#faf6ee;border-left:4px solid #ce9c1f;border-radius:4px}
+.pt-stats small{display:block;font-size:12px;color:#7a6a45}.pt-stats b{display:block;font:700 clamp(17px,2.4vw,23px)/1.3 'Poppins',sans-serif;color:#111;overflow-wrap:anywhere}
+.pt-banner{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px;border-radius:12px;background:#fff6dc;border-left:5px solid #d42929;color:#3b2c00;font-size:14px}.pt-banner p{margin:4px 0 0;font-size:13px;color:#5a4a1a}.pt-banner.ok{background:#e9f6ee;border-left-color:#1b7a3a;color:#14502a}
+.pt-btn,.pt-btn2{display:inline-block;padding:11px 20px;border-radius:6px;font:700 14px 'Poppins',sans-serif;text-align:center;cursor:pointer;transition:background .2s,transform .2s}
+.pt-btn{background:#d42929;color:#fff;border:2px solid #d42929}.pt-btn:hover{background:#a81e1e;border-color:#a81e1e}
+.pt-btn2{background:#fff;color:#333;border:2px solid #cfcfcf}.pt-btn2:hover{border-color:#d42929;color:#d42929}
+.pt-btn:disabled,.pt-btn2:disabled{opacity:.6;cursor:progress}
+.pt-link{font:600 13px 'Poppins',sans-serif;color:#d42929;text-decoration:underline;padding:2px 0}.pt-link.red{color:#b3261e}
+.pt-item{padding:16px 0;border-bottom:1px solid #eee}.pt-item:last-child{border-bottom:0}
+.pt-chip{display:inline-block;margin-right:8px;padding:2px 10px;border-radius:99px;background:#f3e7c9;color:#6b5210;font:600 11px 'Poppins',sans-serif;text-transform:uppercase;letter-spacing:.04em;vertical-align:2px}
+.pt-chip.st-praying{background:#e4ecfb;color:#1d4ea5}.pt-chip.st-answered{background:#e1f4e7;color:#1b7a3a}
+.pt-reply{padding:10px 12px;margin:6px 0;background:#f5f7fb;border-left:3px solid #1d4ea5;font-size:14px;color:#222}
+.pt-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:6px 0}.pt-act{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:8px}.pt-ok{font-size:14px;font-weight:600;color:#1b7a3a}
+.pt-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px}.pt-yr{display:flex;align-items:center;gap:8px;margin:6px 0 12px;font-size:13px;color:#555}
+.pt-seg{display:flex;gap:6px;margin-bottom:4px}.pt-seg button{padding:9px 18px;border-radius:999px;background:rgba(255,255,255,.14);color:#fff;font:600 13px 'Poppins',sans-serif}.pt-seg button.on{background:#ce9c1f;color:#111}
+.pt-form{display:grid;gap:12px;margin:10px 0 18px}.pt-form label,.pt-two label{display:grid;gap:5px;font:500 12.5px 'Poppins',sans-serif;color:#555}
+.pt-two{grid-template-columns:1fr 1fr}.pt-full{grid-column:1/-1}
+.pt-in{width:100%;padding:12px 13px;font:400 15px 'Poppins',sans-serif;color:#111;background:#f3f4f6;border:1px solid #e5e7eb;border-radius:6px}.pt-in:focus{outline:2px solid #d42929;background:#fff}.pt-s{width:auto;min-width:120px}
+.pt-chk{display:flex!important;align-items:center;gap:8px;font-size:14px!important;color:#222!important}.pt-chk input{width:18px;height:18px;accent-color:#d42929}
+.pt-msg{font:500 13px/1.5 'Poppins',sans-serif;color:#555;min-height:1px}.pt-msg.err{color:#b3261e}.pt-msg.ok{color:#1b7a3a}
+.pt-table{width:100%;border-collapse:collapse}.pt-table th{text-align:left;padding:10px 8px;font:600 12px 'Poppins',sans-serif;color:#777;border-bottom:2px solid #eee}
+.pt-table td{padding:12px 8px;font-size:14px;color:#222;border-bottom:1px solid #f0f0f0}.pt-table td.amt{font-weight:700;color:#d42929;white-space:nowrap}
+.pt-sec{border:1px solid #eee;border-radius:10px;margin-bottom:10px;background:#fff}.pt-sec summary{padding:14px 16px;font:600 15px 'Poppins',sans-serif;color:#111;cursor:pointer}.pt-secb{padding:4px 16px 16px;display:grid;gap:12px}
+.pt-line{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #f0f0f0;font-size:13.5px;color:#333}.pt-sum{font-weight:600;color:#111;font-size:14px}
+.pt-stats.four{grid-template-columns:repeat(auto-fit,minmax(130px,1fr))}
+@media(max-width:640px){.pt-two{grid-template-columns:1fr}.pt-head{flex-wrap:wrap}
+ .pt-table thead{display:none}.pt-table tr{display:block;padding:10px 0;border-bottom:1px solid #eee}.pt-table td{display:flex;justify-content:space-between;gap:12px;padding:3px 0;border:0}.pt-table td::before{content:attr(data-l);font-size:12px;color:#888}}
+
+/* ---------- App shell (appended) ---------- */
+html{-webkit-tap-highlight-color:transparent}
+body{overscroll-behavior-y:none}
+button,a{touch-action:manipulation}
+.pt-page{background:linear-gradient(#0c0a09,#2b0508) fixed}
+.pt-wrap{max-width:1120px}
+.ic{width:22px;height:22px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+/* greeting */
+.pt-hero{position:relative;overflow:hidden;display:flex;align-items:center;gap:14px;padding:18px 20px;margin-bottom:16px;border-radius:22px;background:linear-gradient(120deg,#d42929,#5e0d14);color:#fff;box-shadow:0 14px 36px rgba(0,0,0,.35)}
+.pt-hero::after{content:"";position:absolute;right:-50px;bottom:-80px;width:190px;height:190px;border-radius:50%;background:#ce9c1f;opacity:.35;pointer-events:none}
+.pt-hero>*{position:relative;z-index:1}
+.pt-hero .pt-logo{width:56px;height:56px;object-fit:contain;font-size:0}
+.pt-hero .pt-who p{font-size:13px;color:#f6d98a}
+.pt-hero .pt-who h1{color:#fff;font:700 clamp(20px,3.2vw,28px)/1.2 'Poppins',sans-serif}
+.pt-ibtn{position:relative;display:grid;place-items:center;width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.14);color:#fff}
+.pt-ibtn:active{background:rgba(255,255,255,.26)}
+.pt-hero .pt-out{min-height:46px;padding:0 18px;border:1px solid rgba(255,255,255,.4);border-radius:12px;background:rgba(255,255,255,.1);color:#fff}
+.nbadge{margin-left:auto;min-width:20px;padding:2px 6px;border-radius:99px;background:#ce9c1f;color:#111;font:700 11px/1.3 'Poppins',sans-serif;font-style:normal;text-align:center}
+.nbadge[hidden]{display:none}
+.pt-ibtn .nbadge{position:absolute;top:-3px;right:-3px;margin:0}
+
+/* layout: sidebar on wide screens, bottom bar on phones */
+.pt-shell{display:grid;grid-template-columns:240px minmax(0,1fr);gap:16px;align-items:start}
+.pt-side{position:sticky;top:calc(var(--header-h,100px) + 16px);display:grid;gap:2px;padding:10px;background:#fff;border-radius:20px}
+.pt-side button,.pt-list button,.pt-list a{position:relative;display:flex;align-items:center;gap:12px;width:100%;min-height:46px;padding:0 14px;border-radius:12px;font:600 14px 'Poppins',sans-serif;color:#555;text-align:left;transition:background .15s,color .15s}
+.pt-side button:hover,.pt-list button:hover,.pt-list a:hover{background:#f6efe6}
+.pt-side button.on,.pt-list button.on{background:#d42929;color:#fff}
+.pt-list button.out{color:#b3261e}
+.pt-bar{display:none}
+.pt-sheet{position:fixed;inset:0;z-index:60}
+.pt-sheet[hidden]{display:none}
+.pt-scrim{position:absolute;inset:0;background:rgba(0,0,0,.55);opacity:0;transition:opacity .2s}
+.pt-panel{position:absolute;left:0;right:0;bottom:0;padding:10px 12px calc(14px + env(safe-area-inset-bottom));background:#fff;border-radius:22px 22px 0 0;transform:translateY(100%);transition:transform .22s ease-out}
+.pt-sheet.open .pt-scrim{opacity:1}
+.pt-sheet.open .pt-panel{transform:none}
+.pt-grab{width:40px;height:4px;margin:2px auto 10px;border-radius:2px;background:#ddd}
+@media(min-width:861px){.pt-sheet{display:none!important}}
+@media(max-width:860px){
+  .pt-shell{grid-template-columns:minmax(0,1fr)}
+  .pt-side{display:none}
+  .pt-page{padding-bottom:calc(92px + env(safe-area-inset-bottom))}
+  .pt-bar{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;position:fixed;z-index:50;left:0;right:0;bottom:0;padding:6px 6px calc(6px + env(safe-area-inset-bottom));background:#fff;border-radius:20px 20px 0 0;box-shadow:0 -8px 28px rgba(0,0,0,.35)}
+  .pt-bar button{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:56px;border-radius:14px;font:600 11px 'Poppins',sans-serif;color:#6b6b6b;transition:background .15s,color .15s}
+  .pt-bar button.on{background:#d42929;color:#fff}
+  .pt-bar .nbadge{position:absolute;top:3px;left:calc(50% + 4px);margin:0}
+  .site-footer,.to-top{display:none!important}
+}
+@media(max-width:640px){
+  .pt-hero{padding:14px;gap:10px;border-radius:20px}
+  .pt-hero .pt-logo{width:42px;height:42px}
+  .pt-hero .pt-out{display:none}
+  .pt-hero .pt-who h1{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+}
+
+/* cards, buttons, inputs */
+.pt-card{border-radius:20px}
+.pt-btn,.pt-btn2{display:inline-flex;align-items:center;justify-content:center;min-height:44px;border-radius:12px}
+.pt-btn:active,.pt-btn2:active{transform:scale(.98)}
+.pt-in{min-height:46px;font-size:16px;border-radius:12px}
+textarea.pt-in{min-height:0}
+.pt-link{text-align:left}
+.pt-chip{text-transform:none;letter-spacing:0;font-size:12px}
+.pt-stats div{border-radius:12px}
+.pt-grid .pt-card{border-top:0}
+.pt-view>*{animation:ptIn .2s ease-out}
+@keyframes ptIn{from{opacity:0}to{opacity:1}}
+
+/* quick actions */
+.pt-tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.pt-tile{display:flex;flex-direction:column;align-items:flex-start;gap:2px;min-height:112px;padding:14px;border-radius:16px;background:#fff;color:#111;text-align:left;transition:transform .12s}
+.pt-tile:active{transform:scale(.98)}
+.pt-tile b{margin-top:10px;font:700 15px 'Poppins',sans-serif}
+.pt-tile small{font-size:12px;line-height:1.35;color:#777}
+.pt-tic{display:grid;place-items:center;width:40px;height:40px;border-radius:12px;background:#fbe9ea;color:#d42929}
+.pt-tile.gold{background:linear-gradient(135deg,#ecc766,#c6961f)}
+.pt-tile.gold .pt-tic{background:rgba(255,255,255,.4);color:#5b3b00}
+.pt-tile.gold small{color:#5b3b00}
+@media(max-width:640px){.pt-tiles{grid-template-columns:1fr 1fr}}
+
+/* tithe reminder */
+.pt-banner{flex-wrap:nowrap;gap:14px;padding:16px;border-radius:18px;border-left:0;background:#fff3cf}
+.pt-bic{display:grid;place-items:center;width:44px;height:44px;flex:none;border-radius:50%;background:#d42929;color:#fff}
+.pt-banner.ok .pt-bic{background:#1b7a3a}
+.pt-bt,.pt-banner>div{flex:1;min-width:0}
+@media(max-width:640px){.pt-banner{flex-wrap:wrap}.pt-bt,.pt-banner>div{flex:1 1 calc(100% - 60px)}.pt-banner .pt-btn{width:100%}}
+
+/* events */
+.pt-ev{display:grid;grid-template-columns:60px minmax(0,1fr);gap:14px}
+.pt-evrow{display:flex;gap:14px;align-items:flex-start}
+.pt-date{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:none;width:60px;height:64px;border-radius:14px;background:linear-gradient(#d42929,#a81e1e);color:#fff}
+.pt-date b{font:700 22px/1 'Poppins',sans-serif}
+.pt-date span{margin-top:4px;font:600 12px/1 'Poppins',sans-serif;color:#f6d98a}
+@media(max-width:480px){.pt-act .pt-btn,.pt-act .pt-btn2,.pt-act select{width:100%}}
+
+/* loading */
+.pt-skel{display:grid;gap:14px}
+.pt-skel i{display:block;height:92px;border-radius:20px;background:linear-gradient(90deg,rgba(255,255,255,.07),rgba(255,255,255,.16),rgba(255,255,255,.07));background-size:200% 100%;animation:ptSk 1.2s linear infinite}
+@keyframes ptSk{to{background-position:-200% 0}}
+@media(prefers-reduced-motion:reduce){.pt-skel i,.pt-view>*{animation:none}.pt-panel,.pt-scrim{transition:none}}
+
+/* ---------- App layout: one phone-width column, bottom tab bar always ---------- */
+.pt-page{min-height:100svh;padding:calc(env(safe-area-inset-top) + 14px) 14px calc(96px + env(safe-area-inset-bottom))}
+.pt-wrap{max-width:560px}
+.pt-shell{grid-template-columns:minmax(0,1fr)}
+.pt-side{display:none}
+.pt-grid{grid-template-columns:minmax(0,1fr)}
+.pt-tiles{grid-template-columns:1fr 1fr}
+.pt-bar{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;position:fixed;z-index:50;bottom:0;left:50%;width:min(100%,560px);transform:translateX(-50%);padding:6px 6px calc(6px + env(safe-area-inset-bottom));background:#fff;border-radius:20px 20px 0 0;box-shadow:0 -8px 28px rgba(0,0,0,.35)}
+.pt-bar button{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:56px;border-radius:14px;font:600 11px 'Poppins',sans-serif;color:#6b6b6b}
+.pt-bar button.on{background:#a31820;color:#fff}
+.pt-bar .nbadge{position:absolute;top:3px;left:calc(50% + 4px);margin:0}
+.pt-sheet{display:block!important}
+.pt-sheet[hidden]{display:none!important}
+.pt-panel{left:50%;right:auto;width:min(100%,560px);transform:translate(-50%,100%)}
+.pt-sheet.open .pt-panel{transform:translate(-50%,0)}
+.pt-hero .pt-out{display:none}
+.pt-hero .pt-who h1{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pt-list a.on{background:#a31820;color:#fff}
+
+/* ---------- Splash ---------- */
+#splash{position:fixed;inset:0;z-index:100;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding:24px;text-align:center;background:radial-gradient(circle at 50% 38%,#8a141b 0%,#4a0a0f 55%,#2b0508 100%);color:#fff;transition:opacity .45s ease}
+#splash.gone{opacity:0;pointer-events:none}
+.sp-logo{width:132px;height:132px;object-fit:contain;font-size:0;animation:spIn .7s ease-out both}
+.sp-in{display:grid;justify-items:center;gap:14px}
+.sp-in h1{font:600 clamp(20px,6vw,26px)/1.25 'Cinzel',Georgia,serif;letter-spacing:.06em;color:#fff;animation:spIn .7s .2s ease-out both}
+.sp-in p{font:500 13px/1 'Poppins',sans-serif;letter-spacing:.18em;color:#ecc766;animation:spIn .7s .35s ease-out both}
+.sp-bar{width:120px;height:3px;border-radius:2px;background:rgba(255,255,255,.18);overflow:hidden}
+.sp-bar i{display:block;height:100%;width:100%;background:#ce9c1f;transform-origin:left;animation:spBar 1.7s ease-in-out both}
+@keyframes spIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes spBar{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@media(prefers-reduced-motion:reduce){#splash{transition:none}.sp-logo,.sp-in h1,.sp-in p,.sp-bar i{animation:none}}
+
+/* ---------- Register / login ---------- */
+.au{min-height:100svh;display:flex;flex-direction:column;align-items:center;gap:18px;padding:calc(env(safe-area-inset-top) + 28px) 16px calc(24px + env(safe-area-inset-bottom));background:linear-gradient(#4a0a0f,#2b0508) fixed}
+.au-top{display:grid;justify-items:center;gap:6px;text-align:center;color:#fff;max-width:520px}
+.au-logo{width:84px;height:84px;object-fit:contain;font-size:0;margin-bottom:6px}
+.au-top h1{font:700 clamp(24px,7vw,30px)/1.2 'Poppins',sans-serif}
+.au-top p{font-size:14px;color:#f6d98a}
+.au-card{width:100%;max-width:520px;padding:18px;background:#fff;border-radius:22px;box-shadow:0 14px 36px rgba(0,0,0,.35)}
+.au-tabs{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:4px;margin-bottom:14px;border-radius:14px;background:#f3ece0}
+.au-tabs button{min-height:44px;border-radius:11px;font:600 14px 'Poppins',sans-serif;color:#6b5b4b}
+.au-tabs button.on{background:#a31820;color:#fff}
+.au .pt-form{margin:0}
+.au .pt-btn{width:100%}
+.au-pw{position:relative;display:block}
+.au-pw .pt-in{width:100%;padding-right:68px}
+.au-pw button{position:absolute;right:6px;top:50%;transform:translateY(-50%);min-width:56px;min-height:36px;border-radius:10px;font:600 12.5px 'Poppins',sans-serif;color:#a31820}
+#forgot{justify-self:start;min-height:36px;font-size:13px}
+.au-foot{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 14px;font-size:13px;color:#e8c9a0}
+.au-foot a{text-decoration:underline;text-underline-offset:3px}
+
+/* ---------- Website theme (black, red header, gold, cream) ---------- */
+body{background:#0c0a09;color:#f4ecd8}
+.pt-page{background:#0c0a09;padding:calc(78px + env(safe-area-inset-bottom) * 0 + env(safe-area-inset-top)) 14px calc(96px + env(safe-area-inset-bottom))}
+.app-bar{position:fixed;z-index:40;top:0;left:0;right:0;padding-top:env(safe-area-inset-top);background:#d42929;box-shadow:0 2px 14px rgba(0,0,0,.45)}
+.app-bar--static{position:relative;box-shadow:none}
+.app-bar-in{max-width:560px;height:64px;margin:0 auto;padding:0 14px;display:flex;align-items:center;gap:10px}
+.ab-logo{width:46px;height:44px;flex:none;object-fit:contain;font-size:0}
+.ab-name{flex:1;min-width:0;font:700 13px/1.2 'Poppins',sans-serif;text-transform:uppercase;letter-spacing:.02em;color:#fff}
+.app-bar .pt-ibtn{background:rgba(0,0,0,.2);width:44px;height:44px}
+.gr{padding:4px 4px 16px;margin-bottom:16px;border-bottom:1px solid rgba(198,150,31,.35)}
+.gr #hello{font-size:13px;color:#ecc766}
+.gr #who{font:700 clamp(24px,7vw,30px)/1.2 'Poppins',sans-serif;color:#fff;overflow-wrap:anywhere}
+.gr #today{font-size:13px;color:#cdc2a6}
+
+/* content cards: cream on black */
+.pt-card,.pt-tile:not(.gold),.pt-stats div{background:#f7f0df}
+.pt-card{border:1px solid rgba(198,150,31,.45)}
+.pt-card h2,.pt-grid .pt-card h3:first-child{font-family:'Cinzel',Georgia,serif;font-weight:700;letter-spacing:.03em}
+.pt-btn{background:#d42929;color:#fff;border-radius:999px;padding-inline:24px;font-weight:700}
+.pt-btn:hover{filter:brightness(1.1)}
+.pt-btn2{border-radius:999px}
+.pt-date{background:linear-gradient(#d42929,#a81e1e)}
+.pt-link{color:#b01e1e}
+
+/* tab bar + More sheet: dark with gold line */
+.pt-bar{background:#14100e;border-top:1px solid rgba(198,150,31,.4);box-shadow:0 -8px 28px rgba(0,0,0,.6)}
+.pt-bar button{color:#cdc2a6}
+.pt-bar button.on{background:#d42929;color:#fff}
+.pt-panel{background:#17110f;border-top:1px solid rgba(198,150,31,.4)}
+.pt-grab{background:#4a3d36}
+.pt-list button,.pt-list a{color:#f4ecd8}
+.pt-list button:hover,.pt-list a:hover{background:rgba(255,255,255,.07)}
+.pt-list button.on{background:#d42929;color:#fff}
+.pt-list button.out{color:#ff8a80}
+.pt-skel i{background:linear-gradient(90deg,rgba(255,255,255,.05),rgba(255,255,255,.12),rgba(255,255,255,.05));background-size:200% 100%}
+
+/* embers (same effect as the website hero) */
+.embers{position:absolute;inset:0;z-index:1;overflow:hidden;pointer-events:none}
+.ember{position:absolute;bottom:-14px;left:var(--x);width:var(--s);height:var(--s);border-radius:50%;background:radial-gradient(circle,#ffeab0 0%,#d9a52a 55%,transparent 72%);opacity:0;animation:rise var(--t) linear var(--dl) infinite}
+@keyframes rise{0%{transform:translate3d(0,0,0) scale(.6);opacity:0}12%{opacity:.9}80%{opacity:.45}100%{transform:translate3d(var(--dx),-105vh,0) scale(1.1);opacity:0}}
+@keyframes logoGlow{0%,100%{filter:drop-shadow(0 0 10px rgba(198,150,31,.25))}50%{filter:drop-shadow(0 0 30px rgba(230,180,60,.65))}}
+@keyframes floaty{0%,100%{translate:0 0}50%{translate:0 -10px}}
+@keyframes shimmer{0%{background-position:150% 0}100%{background-position:-100% 0}}
+
+/* splash */
+#splash{overflow:hidden;background:linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.84)),url(https://gmtinternationalchurch.vercel.app/images/099a78c35266b32c430cc7a6914d1dcd40e5b31b.jpeg) center/cover #000}
+.sp-in,.sp-bar{position:relative;z-index:2}
+.sp-logo{animation:spIn .7s ease-out both,logoGlow 4.5s ease-in-out .7s infinite,floaty 7s ease-in-out .7s infinite}
+.sp-in h1{font:700 clamp(22px,6.5vw,30px)/1.2 'Poppins',sans-serif;letter-spacing:-.01em;color:#fff}
+.sp-in p{font-size:15px;font-weight:600;letter-spacing:.16em;background:linear-gradient(100deg,#fff 0%,#fff 38%,#f3cf7a 50%,#fff 62%,#fff 100%);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;animation:spIn .7s .35s ease-out both,shimmer 4s linear 1.2s infinite}
+
+/* register / login */
+.au{display:block;position:relative;overflow:hidden;padding:0 0 calc(24px + env(safe-area-inset-bottom));background:#0c0a09}
+.au::before{content:"";position:absolute;inset:0;z-index:0;background:linear-gradient(rgba(12,10,9,.7),rgba(12,10,9,.93)),url(https://gmtinternationalchurch.vercel.app/images/099a78c35266b32c430cc7a6914d1dcd40e5b31b.jpeg) center/cover}
+.au>.app-bar,.au>.au-main{position:relative;z-index:2}
+.au>.app-bar{position:relative}
+.au-main{display:flex;flex-direction:column;align-items:center;gap:18px;width:100%;max-width:520px;margin:0 auto;padding:26px 16px 0}
+.au-card{background:rgba(22,16,13,.92);border:1px solid rgba(198,150,31,.4);color:#f4ecd8}
+.au-tabs{background:#1d1512}
+.au-tabs button{color:#cdc2a6}
+.au-tabs button.on{background:#d42929;color:#fff}
+.au .pt-form label{color:#cdc2a6}
+.au .pt-in{background:#1d1512;border:1px solid #3a2a22;color:#f4ecd8}
+.au .pt-in:focus{border-color:#ce9c1f;outline:0;box-shadow:0 0 0 3px rgba(206,156,31,.25)}
+.au .pt-link,.au-pw button{color:#ecc766}
+.au .pt-msg.err{color:#ff9a90}
+.au .pt-msg.ok{color:#8fe3a1}
+.au-top h1{color:#fff}
+.au-foot a{color:#ecc766}
+@media(prefers-reduced-motion:reduce){.embers{display:none}.sp-logo{animation:none}.sp-in p{animation:none;-webkit-text-fill-color:#f3cf7a;color:#f3cf7a;background:none}}
+
+</style>
+</head>
+<body>
+  <div id="splash" role="status" aria-label="Loading">
+    <div class="embers" aria-hidden="true"></div>
+    <div class="sp-in">
+      <img class="sp-logo" src="https://gmtinternationalchurch.vercel.app/images/gmt-logo.png" alt="" onerror="this.onerror=null;this.src='https://gmtinternationalchurch.vercel.app/images/3d49ab2c1202d97546a8ee8eabdb8dc4e959983e.png'">
+      <h1>Gospel Mission<br>Tabernacle Int&rsquo;l</h1>
+      <p>WARRIORS OF FAITH</p>
+    </div>
+    <div class="sp-bar"><i></i></div>
+  </div>
+
+  <main id="auth" class="au" hidden>
+    <header class="app-bar app-bar--static"><div class="app-bar-in"><img class="ab-logo" src="https://gmtinternationalchurch.vercel.app/images/gmt-logo.png" alt="" onerror="this.onerror=null;this.src='https://gmtinternationalchurch.vercel.app/images/3d49ab2c1202d97546a8ee8eabdb8dc4e959983e.png'"><span class="ab-name">Gospel Mission Tabernacle Int&rsquo;l</span></div></header>
+    <div class="embers" aria-hidden="true"></div>
+    <div class="au-main">
+      <div class="au-top">
+        <h1 id="authTitle">Welcome back</h1>
+        <p id="authSub">Log in to your member account.</p>
+      </div>
+      <section class="au-card">
+        <div class="au-tabs" id="tabs" role="tablist">
+          <button type="button" id="tabLogin" class="on" role="tab" aria-selected="true">Log in</button>
+          <button type="button" id="tabReg" role="tab" aria-selected="false">Create account</button>
+        </div>
+        <form class="pt-form" id="authForm" novalidate>
+          <label id="fName" hidden>Full name<input class="pt-in" id="name" autocomplete="name"></label>
+          <label id="fPhone" hidden>Phone (optional)<input class="pt-in" id="phone" type="tel" inputmode="tel" autocomplete="tel"></label>
+          <label id="fEmail">Email<input class="pt-in" id="email" type="email" inputmode="email" autocomplete="email" autocapitalize="none"></label>
+          <label id="fPass">Password<span class="au-pw"><input class="pt-in" id="pass" type="password" autocomplete="current-password"><button type="button" id="eye" aria-label="Show password">Show</button></span></label>
+          <button type="button" class="pt-link" id="forgot">Forgot password?</button>
+          <p id="authMsg" class="pt-msg" role="alert"></p>
+          <button class="pt-btn" id="authGo" type="submit">Log in</button>
+        </form>
+      </section>
+      <p class="au-foot"><a href="https://gmtinternationalchurch.vercel.app/" target="_blank" rel="noopener">Our website</a><a href="https://www.facebook.com/Gospelmissiontabernacleinternational/" target="_blank" rel="noopener">Facebook</a><a href="https://www.instagram.com/gospelmissiontabernacle/" target="_blank" rel="noopener">Instagram</a></p>
+    </div>
+  </main>
+
+  <main id="app" class="pt-page" hidden>
+    <header class="app-bar"><div class="app-bar-in"><img class="ab-logo" src="https://gmtinternationalchurch.vercel.app/images/gmt-logo.png" alt="" onerror="this.onerror=null;this.src='https://gmtinternationalchurch.vercel.app/images/3d49ab2c1202d97546a8ee8eabdb8dc4e959983e.png'"><span class="ab-name">Gospel Mission Tabernacle Int&rsquo;l</span><button class="pt-ibtn" id="bell" type="button" aria-label="Notifications"><span id="bellic"></span><i class="nbadge" hidden></i></button></div></header>
+    <div class="pt-wrap">
+      <div class="gr"><p id="hello">Welcome,</p><h1 id="who">Member</h1><p id="today"></p></div>
+      <div class="pt-shell">
+        <nav class="pt-side" id="side" aria-label="Member area"></nav>
+        <div id="view" class="pt-view" aria-live="polite"></div>
+      </div>
+    </div>
+    <nav class="pt-bar" id="bar" aria-label="Member area"></nav>
+    <div class="pt-sheet" id="sheet" hidden>
+      <div class="pt-scrim" id="scrim"></div>
+      <div class="pt-panel" role="dialog" aria-label="More">
+        <div class="pt-grab"></div>
+        <div class="pt-list" id="sheetList"></div>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+(function(){
+var SB_URL='https://jixjanbnmxlwzzvwmlkb.supabase.co',SB_KEY='sb_publishable_ht_CvKBoeX2xuLslsX_emw_X0RLokh0';
+var sb=window.supabase.createClient(SB_URL,SB_KEY);
+var $=function(s){return document.querySelector(s)};
+function h(t,a,c){var e=document.createElement(t);for(var k in a||{}){var v=a[k];if(k==='class')e.className=v;else if(k==='text')e.textContent=v;else if(k.slice(0,2)==='on')e.addEventListener(k.slice(2),v);else if(v===true)e.setAttribute(k,'');else if(v!==false&&v!=null)e.setAttribute(k,v)}
+ [].concat(c||[]).forEach(function(x){if(x==null||x===false)return;e.appendChild(typeof x==='string'?document.createTextNode(x):x)});return e}
+function put(box,n){box.innerHTML='';[].concat(n).forEach(function(x){if(x)box.appendChild(x)})}
+var ngn=function(n){return new Intl.NumberFormat('en-NG',{style:'currency',currency:'NGN'}).format(n||0)};
+var fD=function(d){return new Date(d).toLocaleDateString('en-NG',{weekday:'short',day:'numeric',month:'short',year:'numeric'})};
+var fT=function(d){return new Date(d).toLocaleTimeString('en-NG',{hour:'numeric',minute:'2-digit'})};
+var fDT=function(d){return fD(d)+', '+fT(d)};
+var user,me,isAdmin=false,cur='home',names={};
+var SITE='https://gmtinternationalchurch.vercel.app/',GIVE=SITE+'give.html';
+var APP_URL='';/* set to the live address of this app, e.g. https://gmt-app.vercel.app/ */
+function q(p){return p.then(function(r){if(r.error)throw r.error;return r.data||[]})}
+function note(el,t,c){el.textContent=t||'';el.className='pt-msg'+(c?' '+c:'')}
+function busy(b,t){b.dataset.t=b.dataset.t||b.textContent;b.disabled=true;b.textContent=t}
+function idle(b){b.disabled=false;if(b.dataset.t){b.textContent=b.dataset.t;delete b.dataset.t}}
+function oops(e){return (e&&e.message)||'Something went wrong. Please try again.'}
+function empty(t){return h('p',{class:'pt-empty',text:t})}
+function card(c,kids){return h('section',{class:'pt-card'+(c?' '+c:'')},kids)}
+function title(t,sub){return h('div',{},[h('h2',{text:t}),sub?h('p',{class:'pt-sub',text:sub}):null])}
+function lab(t,input){return h('label',{},[h('span',{text:t}),input])}
+function monthName(){return new Date().toLocaleDateString('en-NG',{month:'long'})}
+function monthStart(){var n=new Date();return new Date(n.getFullYear(),n.getMonth(),1)}
+/* icons and small builders */
+var IC={
+ home:'<path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',
+ announce:'<path d="M3 11v2a1 1 0 0 0 1 1h3l5 4V6L7 10H4a1 1 0 0 0-1 1z"/><path d="M16 8a5 5 0 0 1 0 8"/>',
+ events:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/>',
+ sermons:'<circle cx="12" cy="12" r="9"/><path d="M10 8.5l5 3.5-5 3.5z"/>',
+ prayer:'<path d="M12 3c3 3 5 6 5 9a5 5 0 0 1-10 0c0-3 2-6 5-9z"/>',
+ tithes:'<circle cx="12" cy="12" r="9"/><path d="M14.5 9.5a2.6 2 0 0 0-2.5-1.5c-1.5 0-2.5.8-2.5 2s1 1.7 2.5 2 2.5.8 2.5 2-1 2-2.5 2a2.6 2 0 0 1-2.5-1.5M12 6v2M12 16v2"/>',
+ bell:'<path d="M6 16v-5a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 21h4"/>',
+ user:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
+ admin:'<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/>',
+ more:'<circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/>',
+ check:'<path d="M5 12l5 5 9-10"/>',
+ ig:'<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6"/>',
+ web:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',
+ fb:'<path d="M14 8h3V4h-3a4 4 0 0 0-4 4v3H7v4h3v6h4v-6h3l1-4h-4V8z"/>',
+ out:'<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/>'};
+function ico(n){var s=document.createElementNS('http://www.w3.org/2000/svg','svg');s.setAttribute('viewBox','0 0 24 24');s.setAttribute('class','ic');s.setAttribute('aria-hidden','true');s.innerHTML=IC[n]||'';return s}
+function dbadge(d){var x=new Date(d);return h('div',{class:'pt-date'},[h('b',{text:String(x.getDate())}),h('span',{text:x.toLocaleDateString('en-NG',{month:'short'})})])}
+function tile(t,sub,i,to,gold){var c=[h('span',{class:'pt-tic'},[ico(i)]),h('b',{text:t}),h('small',{text:sub})],k={class:'pt-tile'+(gold?' gold':'')};
+ return /^https?:/.test(to)?h('a',Object.assign({href:to,target:'_blank',rel:'noopener'},k),c):h('button',Object.assign({type:'button',onclick:function(){go(to)}},k),c)}
+function skel(){return h('div',{class:'pt-skel','aria-label':'Loading'},[h('i'),h('i'),h('i')])}
+function greet(){var hr=new Date().getHours();$('#hello').textContent=hr<12?'Good morning,':hr<17?'Good afternoon,':'Good evening,';$('#today').textContent=new Date().toLocaleDateString('en-NG',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}
+/* tithe reminder (worked out here, no server needed) */
+function reminder(paid){
+ return paid?h('div',{class:'pt-banner ok'},[h('span',{class:'pt-bic'},[ico('check')]),h('div',{},[h('b',{text:'Thank you.'}),h('p',{text:'Your tithe for '+monthName()+' has been recorded.'})])])
+ :h('div',{class:'pt-banner'},[h('span',{class:'pt-bic'},[ico('bell')]),h('div',{class:'pt-bt'},[h('b',{text:'Have you paid your tithe for '+monthName()+'?'}),h('p',{text:'None is recorded yet. If you have paid, it will show once the treasurer records it. If not, you can pay now.'})]),h('a',{class:'pt-btn',href:GIVE,target:'_blank',rel:'noopener',text:'Pay now'})])}
+function paidThisMonth(){return q(sb.from('tithes').select('paid_at').eq('member_id',user.id).gte('paid_at',monthStart().toISOString()).limit(1)).then(function(r){return r.length>0})}
+var views={};
+/* ---------- member views ---------- */
+views.home=function(){var nowIso=new Date().toISOString();
+ return Promise.all([paidThisMonth(),
+  q(sb.from('tithes').select('amount,paid_at').eq('member_id',user.id)),
+  q(sb.from('announcements').select('*').eq('published',true).order('pinned',{ascending:false}).order('created_at',{ascending:false}).limit(1)),
+  q(sb.from('events').select('*').eq('published',true).gte('starts_at',nowIso).order('starts_at').limit(1)),
+  q(sb.from('sermons').select('*').eq('published',true).order('preached_on',{ascending:false}).limit(1))
+ ]).then(function(r){var y=new Date().getFullYear(),tot=0,n=0;
+  r[1].forEach(function(t){if(new Date(t.paid_at).getFullYear()===y){tot+=+t.amount;n++}});
+  var a=r[2][0],e=r[3][0],s=r[4][0];
+  return [reminder(r[0]),
+   h('div',{class:'pt-tiles'},[tile('Pay tithe','Church account details','tithes',GIVE,true),tile('Events','Register to attend','events','events'),tile('Sermons','Watch and listen','sermons','sermons'),tile('Prayer','Send a request','prayer','prayer')]),
+   h('div',{class:'pt-stats'},[h('div',{},[h('small',{text:'Tithe in '+y}),h('b',{text:ngn(tot)})]),h('div',{},[h('small',{text:'Payments this year'}),h('b',{text:String(n)})])]),
+   h('div',{class:'pt-grid'},[
+    card('',[h('h3',{text:'Next event'}),e?h('div',{class:'pt-evrow'},[dbadge(e.starts_at),h('div',{},[h('b',{text:e.title}),h('p',{class:'pt-meta',text:fT(e.starts_at)+(e.location?' · '+e.location:'')}),h('button',{class:'pt-link',type:'button',onclick:function(){go('events')},text:'See events and register'})])]):empty('No upcoming events yet.')]),
+    card('',[h('h3',{text:'Latest announcement'}),a?h('div',{},[h('b',{text:a.title}),h('p',{class:'pt-clip',text:a.body}),h('button',{class:'pt-link',type:'button',onclick:function(){go('announcements')},text:'Read more'})]):empty('Nothing posted yet.')]),
+    card('',[h('h3',{text:'Latest sermon'}),s?h('div',{},[h('b',{text:s.title}),h('p',{class:'pt-meta',text:(s.speaker||'')+(s.speaker?' · ':'')+fD(s.preached_on)}),h('button',{class:'pt-link',type:'button',onclick:function(){go('sermons')},text:'Watch or listen'})]):empty('No sermons yet.')])])]})};
+
+
+views.announcements=function(){return q(sb.from('announcements').select('*').eq('published',true).order('pinned',{ascending:false}).order('created_at',{ascending:false})).then(function(r){
+ return card('',[title('Announcements')].concat(r.length?r.map(function(a){return h('article',{class:'pt-item'},[h('h3',{},[a.pinned?h('span',{class:'pt-chip',text:'Pinned'}):null,a.title]),h('p',{class:'pt-meta',text:fD(a.created_at)}),h('p',{class:'pt-body',text:a.body})])}):[empty('No announcements yet.')]))})};
+
+views.events=function(){var since=new Date(Date.now()-864e5).toISOString();
+ return Promise.all([q(sb.from('events').select('*').eq('published',true).gte('starts_at',since).order('starts_at')),q(sb.from('event_registrations').select('event_id,guests').eq('member_id',user.id))]).then(function(r){
+  var mine={};r[1].forEach(function(x){mine[x.event_id]=x.guests});var wrap=card('',[title('Events and programmes','Register so we can plan for you.')]);
+  if(!r[0].length)wrap.appendChild(empty('No upcoming events yet.'));
+  r[0].forEach(function(e){var box=h('div',{class:'pt-act'});
+   function draw(){var reg=e.id in mine;box.innerHTML='';
+    if(reg){box.appendChild(h('p',{class:'pt-ok',text:'You are registered'+(mine[e.id]?' with '+mine[e.id]+' guest'+(mine[e.id]>1?'s':''):'')+'.'}));
+     box.appendChild(h('button',{class:'pt-btn2',type:'button',onclick:function(ev){var b=ev.target;busy(b,'Cancelling...');sb.from('event_registrations').delete().eq('event_id',e.id).eq('member_id',user.id).then(function(x){idle(b);if(x.error)return alert(oops(x.error));delete mine[e.id];draw()})},text:'Cancel registration'}))}
+    else if(!e.registration_open){box.appendChild(h('p',{class:'pt-meta',text:'Registration is closed.'}))}
+    else{var g=h('select',{class:'pt-in pt-s'},[0,1,2,3,4,5,6,7,8,9,10].map(function(n){return h('option',{value:n,text:n===0?'Just me':'+'+n+' guest'+(n>1?'s':'')})}));
+     box.appendChild(g);box.appendChild(h('button',{class:'pt-btn',type:'button',onclick:function(ev){var b=ev.target;busy(b,'Registering...');sb.from('event_registrations').insert({event_id:e.id,guests:+g.value}).then(function(x){idle(b);if(x.error)return alert(oops(x.error));mine[e.id]=+g.value;draw()})},text:'Register'}))}}
+   draw();
+   wrap.appendChild(h('article',{class:'pt-item pt-ev'},[dbadge(e.starts_at),h('div',{},[h('span',{class:'pt-chip',text:e.category||'event'}),h('h3',{text:e.title}),h('p',{class:'pt-meta',text:fDT(e.starts_at)+(e.location?' · '+e.location:'')}),e.description?h('p',{class:'pt-body',text:e.description}):null,box])]))});
+  return wrap})};
+
+views.sermons=function(){return Promise.all([q(sb.from('sermons').select('*').eq('published',true).order('preached_on',{ascending:false})),q(sb.from('study_materials').select('*').eq('published',true).order('study_date',{ascending:false}))]).then(function(r){
+ var out=h('div'),tabs=h('div',{class:'pt-seg'}),sh=card('',[]),b1=h('button',{type:'button',class:'on',text:'Sermons'}),b2=h('button',{type:'button',text:'Bible study'});
+ function a(u,t){return u?h('a',{class:'pt-btn2',href:u,target:'_blank',rel:'noopener',text:t}):null}
+ function sermons(){put(sh,[title('Sermons')].concat(r[0].length?r[0].map(function(s){return h('article',{class:'pt-item'},[h('h3',{text:s.title}),h('p',{class:'pt-meta',text:(s.speaker?s.speaker+' · ':'')+fD(s.preached_on)+(s.scripture?' · '+s.scripture:'')}),s.summary?h('p',{class:'pt-body',text:s.summary}):null,h('div',{class:'pt-row'},[a(s.video_url,'Watch'),a(s.audio_url,'Listen'),a(s.notes_url,'Notes')])])}):[empty('No sermons yet.')]))}
+ function study(){put(sh,[title('Bible study')].concat(r[1].length?r[1].map(function(s){return h('article',{class:'pt-item'},[h('h3',{text:s.title}),h('p',{class:'pt-meta',text:fD(s.study_date)+(s.scripture?' · '+s.scripture:'')}),s.description?h('p',{class:'pt-body',text:s.description}):null,h('div',{class:'pt-row'},[a(s.link_url,'Open material')])])}):[empty('No study materials yet.')]))}
+ b1.onclick=function(){b1.className='on';b2.className='';sermons()};b2.onclick=function(){b2.className='on';b1.className='';study()};
+ tabs.appendChild(b1);tabs.appendChild(b2);sermons();put(out,[tabs,sh]);return out})};
+
+views.prayer=function(){return q(sb.from('prayer_requests').select('*').eq('member_id',user.id).order('created_at',{ascending:false})).then(function(r){
+ var subj=h('input',{class:'pt-in',type:'text',maxlength:'120',placeholder:'What should we pray about?'}),det=h('textarea',{class:'pt-in',rows:'3',placeholder:'More details (optional)'}),m=h('p',{class:'pt-msg'}),btn=h('button',{class:'pt-btn',type:'submit',text:'Send prayer request'});
+ var form=h('form',{class:'pt-form',novalidate:true,onsubmit:function(e){e.preventDefault();if(!subj.value.trim())return note(m,'Please write the prayer subject.','err');busy(btn,'Sending...');
+  sb.from('prayer_requests').insert({subject:subj.value.trim(),details:det.value.trim()||null}).then(function(x){idle(btn);if(x.error)return note(m,oops(x.error),'err');go('prayer')})}},[subj,det,btn,m]);
+ var list=r.length?r.map(function(p){return h('article',{class:'pt-item'},[h('h3',{},[h('span',{class:'pt-chip st-'+p.status,text:p.status}),p.subject]),h('p',{class:'pt-meta',text:fD(p.created_at)}),p.details?h('p',{class:'pt-body',text:p.details}):null,p.response?h('p',{class:'pt-reply',text:'Pastoral reply: '+p.response}):null,
+  h('button',{class:'pt-link',type:'button',onclick:function(){if(confirm('Delete this request?'))sb.from('prayer_requests').delete().eq('id',p.id).then(function(){go('prayer')})},text:'Delete'})])}):[empty('You have not sent any prayer request yet.')];
+ return card('',[title('Prayer requests','Only you and the church leadership can see these.'),form,h('h3',{text:'Your requests'})].concat(list))})};
+
+views.tithes=function(){return q(sb.from('tithes').select('*').eq('member_id',user.id).order('paid_at',{ascending:false})).then(function(r){
+ var years={};years[new Date().getFullYear()]=1;r.forEach(function(t){years[new Date(t.paid_at).getFullYear()]=1});
+ var list=Object.keys(years).sort(function(a,b){return b-a}),sel=h('select',{class:'pt-in pt-s'},list.map(function(y){return h('option',{value:y,text:y})})),box=h('div'),all=0;r.forEach(function(t){all+=+t.amount});
+ function paint(){var y=+sel.value,tot=0,rows=r.filter(function(t){return new Date(t.paid_at).getFullYear()===y});rows.forEach(function(t){tot+=+t.amount});
+  put(box,[h('div',{class:'pt-stats'},[h('div',{},[h('small',{text:'Total in '+y}),h('b',{text:ngn(tot)})]),h('div',{},[h('small',{text:'All time'}),h('b',{text:ngn(all)})]),h('div',{},[h('small',{text:'Payments in '+y}),h('b',{text:String(rows.length)})])]),
+   rows.length?h('table',{class:'pt-table'},[h('thead',{},[h('tr',{},['Date','Time','Amount','Note'].map(function(x){return h('th',{text:x})}))]),h('tbody',{},rows.map(function(t){return h('tr',{},[h('td',{'data-l':'Date',text:fD(t.paid_at)}),h('td',{'data-l':'Time',text:fT(t.paid_at)}),h('td',{'data-l':'Amount',class:'amt',text:ngn(t.amount)}),h('td',{'data-l':'Note',text:t.note||'-'})])}))]):empty('No tithe recorded in '+y+' yet.')])}
+ sel.onchange=paint;paint();
+ return card('',[h('div',{class:'pt-top'},[h('h2',{text:'Tithe history'}),h('a',{class:'pt-btn',href:GIVE,target:'_blank',rel:'noopener',text:'Pay tithe'})]),h('p',{class:'pt-sub',text:'Pay by bank transfer using the church account on the Give page. The treasurer records it here.'}),h('label',{class:'pt-yr'},['Year ',sel]),box])})};
+
+views.notifications=function(){return Promise.all([paidThisMonth(),q(sb.from('notifications').select('*').order('created_at',{ascending:false}).limit(40))]).then(function(r){
+ localStorage.setItem('gmt_rem_'+new Date().toISOString().slice(0,7),'1');
+ sb.from('profiles').update({notifications_seen_at:new Date().toISOString()}).eq('id',user.id).then(function(){setBadge(0)});
+ return card('',[title('Notifications'),reminder(r[0])].concat(r[1].length?r[1].map(function(n){return h('article',{class:'pt-item'},[h('h3',{text:n.title}),h('p',{class:'pt-meta',text:fDT(n.created_at)}),n.body?h('p',{class:'pt-body',text:n.body}):null,n.link?h('a',{class:'pt-link',href:n.link,text:'Open'}):null])}):[empty('No other notifications.')]))})};
+
+views.profile=function(){
+ var f={name:h('input',{class:'pt-in',type:'text',value:me.full_name||''}),phone:h('input',{class:'pt-in',type:'tel',value:me.phone||''}),addr:h('input',{class:'pt-in',type:'text',value:me.address||''}),dob:h('input',{class:'pt-in',type:'date',value:me.birth_date||''}),mail:h('input',{class:'pt-in',type:'email',value:me.email||user.email,disabled:true})};
+ var m=h('p',{class:'pt-msg'}),btn=h('button',{class:'pt-btn',type:'submit',text:'Save changes'});
+ var form=h('form',{class:'pt-form pt-two',novalidate:true,onsubmit:function(e){e.preventDefault();if(!f.name.value.trim())return note(m,'Please enter your name.','err');busy(btn,'Saving...');
+  var u={full_name:f.name.value.trim(),phone:f.phone.value.trim()||null,address:f.addr.value.trim()||null,birth_date:f.dob.value||null};
+  sb.from('profiles').update(u).eq('id',user.id).then(function(x){idle(btn);if(x.error)return note(m,oops(x.error),'err');Object.assign(me,u);$('#who').textContent=me.full_name;note(m,'Saved.','ok')})}},[lab('Full name',f.name),lab('Phone number',f.phone),lab('Address',f.addr),lab('Date of birth',f.dob),lab('Email (cannot be changed here)',f.mail),h('div',{class:'pt-full'},[btn,m])]);
+ return card('',[title('My profile'),form])};
+
+/* ---------- admin ---------- */
+var TY={
+ announcements:{n:'Announcement',t:'title',d:'created_at',f:[['title','Title','text',1],['body','Message','area',1],['pinned','Pin to the top','check']]},
+ events:{n:'Event',t:'title',d:'starts_at',f:[['title','Title','text',1],['description','Details','area'],['category','Type','sel',0,['service','program','prayer','youth','conference','other']],['location','Location','text'],['starts_at','Starts','dt',1],['ends_at','Ends','dt'],['capacity','Capacity (optional)','num'],['registration_open','Registration open','check',0,1]]},
+ sermons:{n:'Sermon',t:'title',d:'preached_on',f:[['title','Title','text',1],['speaker','Speaker','text'],['preached_on','Date preached','date',1],['scripture','Scripture','text'],['summary','Summary','area'],['video_url','Video link','url'],['audio_url','Audio link','url'],['notes_url','Notes link','url']]},
+ study_materials:{n:'Bible study',t:'title',d:'study_date',f:[['title','Title','text',1],['scripture','Scripture','text'],['description','Description','area'],['link_url','Link','url'],['study_date','Date','date',1]]},
+ notifications:{n:'Notification to everyone',t:'title',d:'created_at',f:[['title','Title','text',1],['body','Message','area'],['link','Link (optional)','text']]}
+};
+function build(def){var g={},nodes=def.f.map(function(f){var k=f[0],type=f[2],el;
+ if(type==='area')el=h('textarea',{class:'pt-in',rows:'3'});
+ else if(type==='sel')el=h('select',{class:'pt-in'},f[4].map(function(o){return h('option',{value:o,text:o})}));
+ else if(type==='check'){el=h('input',{type:'checkbox'});el.checked=!!f[4];g[k]=function(){return el.checked};return h('label',{class:'pt-chk'},[el,' '+f[1]])}
+ else el=h('input',{class:'pt-in',type:{text:'text',url:'url',dt:'datetime-local',date:'date',num:'number'}[type]});
+ g[k]=function(){var v=el.value.trim();if(!v)return null;if(type==='dt')return new Date(v).toISOString();if(type==='num')return parseInt(v,10);return v};
+ return lab(f[1]+(f[3]?' *':''),el)});
+ return {nodes:nodes,get:function(){var o={};for(var i=0;i<def.f.length;i++){var f=def.f[i],v=g[f[0]]();if(f[3]&&(v===null||v===''))return {err:f[1]+' is required.'};if(f[2]==='check'||v!==null)o[f[0]]=v}return {row:o}}}}
+function sec(t,body,open){return h('details',{class:'pt-sec',open:open},[h('summary',{text:t}),h('div',{class:'pt-secb'},body)])}
+function postPanel(){var sel=h('select',{class:'pt-in'},Object.keys(TY).map(function(k){return h('option',{value:k,text:TY[k].n})})),host=h('div'),list=h('div');
+ function draw(){var k=sel.value,def=TY[k],b=build(def),m=h('p',{class:'pt-msg'}),btn=h('button',{class:'pt-btn',type:'submit',text:'Publish'});
+  put(host,h('form',{class:'pt-form',novalidate:true,onsubmit:function(e){e.preventDefault();var r=b.get();if(r.err)return note(m,r.err,'err');busy(btn,'Publishing...');
+   sb.from(k).insert(r.row).then(function(x){idle(btn);if(x.error)return note(m,oops(x.error),'err');note(m,'Published.','ok');e.target.reset();manage()})}},b.nodes.concat([btn,m])));manage()}
+ function manage(){var k=sel.value,def=TY[k];q(sb.from(k).select('*').order(def.d,{ascending:false}).limit(12)).then(function(r){
+  put(list,[h('h3',{text:'Recent '+def.n.toLowerCase()+'s'})].concat(r.length?r.map(function(x){return h('div',{class:'pt-line'},[h('span',{text:x[def.t]+' ('+fD(x[def.d])+')'}),h('button',{class:'pt-link red',type:'button',onclick:function(){if(confirm('Delete "'+x[def.t]+'"?'))sb.from(k).delete().eq('id',x.id).then(function(){manage()})},text:'Delete'})])}):[empty('Nothing yet.')]))})}
+ sel.onchange=draw;draw();return [lab('What do you want to post?',sel),host,list]}
+function tithePanel(){var mem=h('select',{class:'pt-in'},[h('option',{value:'',text:'Choose a member'})].concat(Object.keys(names).sort(function(a,b){return (names[a].name||'').localeCompare(names[b].name||'')}).map(function(id){return h('option',{value:id,text:(names[id].name||'No name')+' ('+(names[id].phone||names[id].email||'')+')'})})));
+ var amt=h('input',{class:'pt-in',type:'number',min:'1',step:'0.01',inputmode:'decimal'}),when=h('input',{class:'pt-in',type:'datetime-local'}),nt=h('input',{class:'pt-in',type:'text',maxlength:'120'}),m=h('p',{class:'pt-msg'}),btn=h('button',{class:'pt-btn',type:'submit',text:'Save record'}),list=h('div');
+ var d=new Date();d.setMinutes(d.getMinutes()-d.getTimezoneOffset());when.value=d.toISOString().slice(0,16);
+ function recent(){q(sb.from('tithes').select('id,member_id,amount,paid_at').order('paid_at',{ascending:false}).limit(12)).then(function(r){put(list,[h('h3',{text:'Latest records'})].concat(r.length?r.map(function(t){return h('div',{class:'pt-line'},[h('span',{text:((names[t.member_id]||{}).name||'Member')+' · '+ngn(t.amount)+' · '+fDT(t.paid_at)}),h('button',{class:'pt-link red',type:'button',onclick:function(){if(confirm('Delete this record?'))sb.from('tithes').delete().eq('id',t.id).then(recent)},text:'Delete'})])}):[empty('No records yet.')]))})}
+ recent();
+ return [h('form',{class:'pt-form',novalidate:true,onsubmit:function(e){e.preventDefault();var a=parseFloat(amt.value);if(!mem.value||!(a>0)||!when.value)return note(m,'Choose a member, amount and date.','err');busy(btn,'Saving...');
+  sb.from('tithes').insert({member_id:mem.value,amount:a,paid_at:new Date(when.value).toISOString(),method:'manual',note:nt.value.trim()||null,created_by:user.id}).then(function(x){idle(btn);if(x.error)return note(m,oops(x.error),'err');note(m,'Saved.','ok');amt.value='';nt.value='';recent()})}},[lab('Member',mem),lab('Amount (₦)',amt),lab('Date and time paid',when),lab('Note (optional)',nt),btn,m]),list]}
+function prayerPanel(){var box=h('div');q(sb.from('prayer_requests').select('*').order('created_at',{ascending:false}).limit(30)).then(function(r){
+ put(box,r.length?r.map(function(p){var st=h('select',{class:'pt-in pt-s'},['open','praying','answered'].map(function(s){return h('option',{value:s,text:s,selected:s===p.status})})),rp=h('textarea',{class:'pt-in',rows:'2',placeholder:'Reply to the member (optional)'});rp.value=p.response||'';
+  var m=h('p',{class:'pt-msg'}),b=h('button',{class:'pt-btn2',type:'button',text:'Save',onclick:function(){busy(b,'Saving...');sb.from('prayer_requests').update({status:st.value,response:rp.value.trim()||null,updated_at:new Date().toISOString()}).eq('id',p.id).then(function(x){idle(b);note(m,x.error?oops(x.error):'Saved.',x.error?'err':'ok')})}});
+  return h('article',{class:'pt-item'},[h('h3',{text:p.subject}),h('p',{class:'pt-meta',text:((names[p.member_id]||{}).name||'Member')+' · '+fD(p.created_at)}),p.details?h('p',{class:'pt-body',text:p.details}):null,h('div',{class:'pt-row'},[st,b]),rp,m])}):[empty('No prayer requests yet.')])});return box}
+function attPanel(){var sel=h('select',{class:'pt-in'}),list=h('div');
+ q(sb.from('events').select('id,title,starts_at').order('starts_at',{ascending:false}).limit(30)).then(function(ev){sel.appendChild(h('option',{value:'',text:'Choose an event'}));ev.forEach(function(e){sel.appendChild(h('option',{value:e.id,text:e.title+' ('+fD(e.starts_at)+')'}))})});
+ function load(){var id=sel.value;put(list,[]);if(!id)return;
+  Promise.all([q(sb.from('event_registrations').select('member_id,guests').eq('event_id',id)),q(sb.from('attendance').select('member_id').eq('event_id',id))]).then(function(r){
+   var att={},ids={};r[1].forEach(function(a){att[a.member_id]=1});r[0].forEach(function(x){ids[x.member_id]=x.guests});Object.keys(att).forEach(function(k){if(!(k in ids))ids[k]=0});
+   var guests=r[0].reduce(function(s,x){return s+x.guests},0),rows=Object.keys(ids).map(function(mid){var cb=h('input',{type:'checkbox'});cb.checked=!!att[mid];
+    cb.onchange=function(){var p=cb.checked?sb.from('attendance').insert({event_id:id,member_id:mid}):sb.from('attendance').delete().eq('event_id',id).eq('member_id',mid);p.then(function(x){if(x.error){cb.checked=!cb.checked;alert(oops(x.error))}})};
+    return h('label',{class:'pt-chk pt-line'},[cb,' '+((names[mid]||{}).name||'Member')+(ids[mid]?' (+'+ids[mid]+' guests)':'')])});
+   var extra=h('select',{class:'pt-in pt-s'},[h('option',{value:'',text:'Add someone who did not register'})].concat(Object.keys(names).filter(function(k){return !(k in ids)}).map(function(k){return h('option',{value:k,text:names[k].name||names[k].email})})));
+   put(list,[h('p',{class:'pt-sum',text:r[0].length+' registered (+'+guests+' guests), '+Object.keys(att).length+' marked present'})].concat(rows.length?rows:[empty('Nobody has registered yet.')],[h('div',{class:'pt-row'},[extra,h('button',{class:'pt-btn2',type:'button',text:'Mark present',onclick:function(){if(!extra.value)return;sb.from('attendance').insert({event_id:id,member_id:extra.value}).then(function(x){if(x.error)return alert(oops(x.error));load()})}})])]))})}
+ sel.onchange=load;return [lab('Event',sel),list]}
+function reportPanel(){var box=h('div');Promise.all([q(sb.from('events').select('id,title,starts_at').order('starts_at',{ascending:false}).limit(50)),q(sb.from('event_registrations').select('event_id,guests')),q(sb.from('attendance').select('event_id'))]).then(function(r){
+ var reg={},gs={},at={};r[1].forEach(function(x){reg[x.event_id]=(reg[x.event_id]||0)+1;gs[x.event_id]=(gs[x.event_id]||0)+x.guests});r[2].forEach(function(x){at[x.event_id]=(at[x.event_id]||0)+1});
+ var rows=r[0].map(function(e){return [e.title,fD(e.starts_at),reg[e.id]||0,gs[e.id]||0,at[e.id]||0]});
+ var csv=[['Event','Date','Registered','Guests','Present']].concat(rows).map(function(l){return l.map(function(c){return '"'+String(c).replace(/"/g,'""')+'"'}).join(',')}).join('\n');
+ put(box,rows.length?[h('table',{class:'pt-table'},[h('thead',{},[h('tr',{},['Event','Date','Registered','Guests','Present'].map(function(x){return h('th',{text:x})}))]),h('tbody',{},rows.map(function(l){return h('tr',{},l.map(function(c,i){return h('td',{'data-l':['Event','Date','Registered','Guests','Present'][i],text:String(c)})}))}))]),
+  h('button',{class:'pt-btn2',type:'button',text:'Download report (CSV)',onclick:function(){var a=h('a',{href:URL.createObjectURL(new Blob([csv],{type:'text/csv'})),download:'gmt-attendance-report.csv'});document.body.appendChild(a);a.click();a.remove()}})]:[empty('No events yet.')])});return box}
+views.admin=function(){if(!isAdmin)return card('',[empty('This page is for church administrators.')]);
+ var cnt=function(t,f){return sb.from(t).select('id',{count:'exact',head:true}).then(function(r){return f?f(r):r.count||0})};
+ return Promise.all([cnt('profiles'),cnt('prayer_requests'),cnt('event_registrations'),cnt('attendance')]).then(function(c){
+  return [card('',[title('Administrator dashboard'),h('div',{class:'pt-stats four'},[['Members',c[0]],['Prayer requests',c[1]],['Event registrations',c[2]],['Attendance marked',c[3]]].map(function(x){return h('div',{},[h('small',{text:x[0]}),h('b',{text:String(x[1])})])}))]),
+   card('',[sec('Post announcements, events, sermons, Bible study, notifications',postPanel(),true),sec('Record a tithe',tithePanel()),sec('Prayer requests',prayerPanel()),sec('Event attendance',attPanel()),sec('Attendance report',reportPanel())])]})};
+
+/* ---------- shell ---------- */
+var TABS=[['home','Home','home'],['announcements','Announcements','announce','News'],['events','Events','events'],['sermons','Sermons & study','sermons','Sermons'],['prayer','Prayer','prayer'],['tithes','Tithes','tithes'],['notifications','Notifications','bell'],['profile','Profile','user']];
+var PRIMARY=['home','announcements','events','sermons'];
+function allTabs(){return TABS.concat(isAdmin?[['admin','Admin','admin']]:[])}
+function mark(){[].forEach.call(document.querySelectorAll('[data-v]'),function(b){var on=b.dataset.v===cur;b.classList.toggle('on',on);if(on)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')});
+ var m=$('#moreBtn');if(m)m.classList.toggle('on',PRIMARY.indexOf(cur)<0)}
+function openSheet(){var s=$('#sheet');s.hidden=false;requestAnimationFrame(function(){s.classList.add('open')});$('#moreBtn').setAttribute('aria-expanded','true')}
+function closeSheet(){var s=$('#sheet');if(s.hidden)return;s.classList.remove('open');$('#moreBtn').setAttribute('aria-expanded','false');setTimeout(function(){if(!s.classList.contains('open'))s.hidden=true},reduceMotion()?0:220)}
+function reduceMotion(){return window.matchMedia('(prefers-reduced-motion: reduce)').matches}
+function drawTabs(){var side=$('#side'),bar=$('#bar'),list=$('#sheetList');side.innerHTML='';bar.innerHTML='';list.innerHTML='';
+ allTabs().forEach(function(t){
+  function mk(label){var b=h('button',{type:'button','data-v':t[0],onclick:function(){go(t[0])}},[ico(t[2]),h('span',{text:label})]);if(t[0]==='notifications')b.appendChild(h('i',{class:'nbadge',hidden:true}));return b}
+  side.appendChild(mk(t[1]));
+  if(PRIMARY.indexOf(t[0])>-1)bar.appendChild(mk(t[3]||t[1]));else list.appendChild(mk(t[1]))});
+ bar.appendChild(h('button',{type:'button',id:'moreBtn','aria-expanded':'false','aria-haspopup':'dialog',onclick:openSheet},[ico('more'),h('span',{text:'More'}),h('i',{class:'nbadge',hidden:true})]));
+ list.appendChild(h('a',{href:'https://www.facebook.com/Gospelmissiontabernacleinternational/',target:'_blank',rel:'noopener'},[ico('fb'),h('span',{text:'Facebook'})]));
+ list.appendChild(h('a',{href:'https://www.instagram.com/gospelmissiontabernacle/',target:'_blank',rel:'noopener'},[ico('ig'),h('span',{text:'Instagram'})]));
+ list.appendChild(h('a',{href:SITE,target:'_blank',rel:'noopener'},[ico('web'),h('span',{text:'Our website'})]));
+ list.appendChild(h('button',{type:'button',class:'out',onclick:function(){sb.auth.signOut()}},[ico('out'),h('span',{text:'Log out'})]));
+ mark()}
+function setBadge(n){[].forEach.call(document.querySelectorAll('.nbadge'),function(b){b.textContent=n;b.hidden=!n})}
+function go(v,quiet){cur=v;closeSheet();mark();
+ if(!quiet&&location.hash!=='#'+v)history.pushState(null,'','#'+v);
+ put($('#view'),skel());window.scrollTo({top:0});
+ Promise.resolve().then(function(){return views[v]()}).then(function(n){if(cur===v)put($('#view'),n)}).catch(function(e){put($('#view'),card('',[empty(oops(e))]))})}
+function startView(){var v=location.hash.slice(1);return views[v]?v:'home'}
+$('#bellic').appendChild(ico('bell'));
+$('#bell').addEventListener('click',function(){go('notifications')});
+$('#scrim').addEventListener('click',closeSheet);
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSheet()});
+window.addEventListener('popstate',function(){go(startView(),true)});
+function badge(){Promise.all([paidThisMonth(),q(sb.from('notifications').select('created_at').gt('created_at',me.notifications_seen_at))]).then(function(r){
+ var rem=!r[0]&&!localStorage.getItem('gmt_rem_'+new Date().toISOString().slice(0,7));setBadge(r[1].length+(rem?1:0))}).catch(function(){})}
+
+
+/* ---------- splash, register / login, boot ---------- */
+var recovering=false,mode='login';
+function show(id){['auth','app'].forEach(function(k){$('#'+k).hidden=(k!==id)})}
+function friendly(e){var t=(e&&e.message||'').toLowerCase();
+ if(t.indexOf('invalid login')>-1)return 'Email or password is not correct.';
+ if(t.indexOf('already')>-1)return 'This email already has an account. Try logging in.';
+ if(t.indexOf('confirm')>-1)return 'Please confirm your email first. Check your inbox.';
+ if(t.indexOf('rate')>-1||t.indexOf('seconds')>-1)return 'Too many tries. Wait a minute and try again.';
+ if(t.indexOf('password')>-1)return 'That password is too weak. Try a longer one.';
+ return (e&&e.message)||'Something went wrong. Please try again.'}
+function setMode(m){mode=m;var reg=m==='register',rst=m==='reset';
+ $('#tabLogin').classList.toggle('on',m==='login');$('#tabReg').classList.toggle('on',reg);
+ $('#tabLogin').setAttribute('aria-selected',m==='login');$('#tabReg').setAttribute('aria-selected',reg);
+ $('#fName').hidden=!reg;$('#fPhone').hidden=!reg;$('#fEmail').hidden=rst;$('#forgot').hidden=m!=='login';$('#tabs').hidden=rst;
+ $('#authGo').textContent=rst?'Save new password':reg?'Create account':'Log in';
+ $('#authTitle').textContent=rst?'Set a new password':reg?'Join the family':'Welcome back';
+ $('#authSub').textContent=rst?'Choose a new password for your account.':reg?'Create your member account in a minute.':'Log in to your member account.';
+ $('#pass').autocomplete=m==='login'?'current-password':'new-password';
+ note($('#authMsg'),'')}
+$('#tabLogin').addEventListener('click',function(){setMode('login')});
+$('#tabReg').addEventListener('click',function(){setMode('register')});
+$('#eye').addEventListener('click',function(){var p=$('#pass'),on=p.type==='password';p.type=on?'text':'password';this.textContent=on?'Hide':'Show';this.setAttribute('aria-label',on?'Hide password':'Show password')});
+function offline(btn,m){if(btn)idle(btn);note(m,'Could not connect. Check your internet and try again.','err')}
+$('#authForm').addEventListener('submit',function(e){e.preventDefault();
+ var m=$('#authMsg'),btn=$('#authGo'),em=$('#email').value.trim(),pw=$('#pass').value;
+ if(mode==='reset'){if(pw.length<8)return note(m,'Use at least 8 characters.','err');busy(btn,'Saving...');
+  return sb.auth.updateUser({password:pw}).then(function(r){idle(btn);if(r.error)return note(m,friendly(r.error),'err');recovering=false;history.replaceState(null,'',location.pathname);
+   return sb.auth.getSession().then(function(x){if(x.data.session)boot(x.data.session);else setMode('login')})}).catch(function(){offline(btn,m)})}
+ if(!/^\S+@\S+\.\S+$/.test(em))return note(m,'Enter a valid email address.','err');
+ if(!pw)return note(m,'Enter your password.','err');
+ if(mode==='login'){busy(btn,'Logging in...');
+  return sb.auth.signInWithPassword({email:em,password:pw}).then(function(r){idle(btn);if(r.error)return note(m,friendly(r.error),'err');boot(r.data.session)}).catch(function(){offline(btn,m)})}
+ var nm=$('#name').value.trim(),ph=$('#phone').value.trim();
+ if(!nm)return note(m,'Please enter your full name.','err');
+ if(pw.length<8)return note(m,'Use at least 8 characters for your password.','err');
+ busy(btn,'Creating account...');
+ sb.auth.signUp({email:em,password:pw,options:{data:{full_name:nm,phone:ph}}}).then(function(r){idle(btn);
+  if(r.error)return note(m,friendly(r.error),'err');
+  if(r.data&&r.data.session){sb.from('profiles').update({full_name:nm,phone:ph}).eq('id',r.data.user.id).then(function(){},function(){});return boot(r.data.session)}
+  setMode('login');note($('#authMsg'),'Account created. Check your email to confirm it, then log in.','ok')}).catch(function(){offline(btn,m)})});
+$('#forgot').addEventListener('click',function(){var m=$('#authMsg'),em=$('#email').value.trim();
+ if(!/^\S+@\S+\.\S+$/.test(em))return note(m,'Type your email above first, then tap Forgot password.','err');
+ sb.auth.resetPasswordForEmail(em,{redirectTo:APP_URL||(location.origin+location.pathname)}).then(function(r){if(r.error)note(m,friendly(r.error),'err');else note(m,'Check your email for a reset link.','ok')}).catch(function(){offline(null,m)})});
+
+function boot(s){user=s.user;show('app');put($('#view'),skel());
+ return q(sb.from('profiles').select('*').eq('id',user.id).single().then(function(x){return {data:x.data?[x.data]:[],error:x.error}})).then(function(p){
+  me=p[0]||{};isAdmin=me.role==='admin';
+  $('#who').textContent=me.full_name||(user.user_metadata&&user.user_metadata.full_name)||user.email;
+  var pr=isAdmin?q(sb.from('profiles').select('id,full_name,email,phone')).then(function(l){l.forEach(function(x){names[x.id]={name:x.full_name,email:x.email,phone:x.phone}})}):Promise.resolve();
+  return pr.then(function(){greet();drawTabs();go(startView(),true);badge()})}).catch(function(e){put($('#view'),card('',[empty(oops(e))]))})}
+
+sb.auth.onAuthStateChange(function(ev){
+ if(ev==='PASSWORD_RECOVERY')recovering=true;
+ if(ev==='SIGNED_OUT'){user=null;me=null;isAdmin=false;cur='home';history.replaceState(null,'',location.pathname);$('#authForm').reset();setMode('login');show('auth')}});
+
+var t0=Date.now(),calm=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(!calm)[].forEach.call(document.querySelectorAll('.embers'),function(box){for(var i=0;i<22;i++){var e=document.createElement('span');e.className='ember';e.style.setProperty('--x',(Math.random()*100).toFixed(1)+'%');e.style.setProperty('--s',(3+Math.random()*6).toFixed(1)+'px');e.style.setProperty('--t',(9+Math.random()*9).toFixed(1)+'s');e.style.setProperty('--dl',(-Math.random()*16).toFixed(1)+'s');e.style.setProperty('--dx',((Math.random()-.5)*160).toFixed(0)+'px');box.appendChild(e)}});
+function endSplash(){var sp=$('#splash');sp.classList.add('gone');setTimeout(function(){sp.hidden=true},calm?0:450)}
+sb.auth.getSession().then(function(r){return r.data.session},function(){return null}).then(function(s){
+ setTimeout(function(){endSplash();
+  if(recovering){setMode('reset');show('auth')}
+  else if(s)boot(s);
+  else{setMode('login');show('auth')}},Math.max(0,(calm?200:1800)-(Date.now()-t0)))});
+if('serviceWorker' in navigator&&/^https?:/.test(location.protocol))navigator.serviceWorker.register('sw.js').catch(function(){});
+})();
+</script>
+</body>
+</html>
