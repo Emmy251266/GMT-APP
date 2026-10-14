@@ -378,7 +378,7 @@ body{background:#0c0a09;color:#f4ecd8}
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
 (function(){
-var SB_URL='https://jixjanbnmxlwzzvwmlkb.supabase.co',SB_KEY='sb_publishable_ht_CvKBoeX2xuLslsX_emw_X0RLokh0';
+var SB_URL='https://ikehkhdvksgakkrpkahs.supabase.co',SB_KEY='sb_publishable_n-RLB3d6YMfBpLVJoE22sA_SZeSXxDg';
 var sb=window.supabase.createClient(SB_URL,SB_KEY);
 var $=function(s){return document.querySelector(s)};
 function h(t,a,c){var e=document.createElement(t);for(var k in a||{}){var v=a[k];if(k==='class')e.className=v;else if(k==='text')e.textContent=v;else if(k.slice(0,2)==='on')e.addEventListener(k.slice(2),v);else if(v===true)e.setAttribute(k,'');else if(v!==false&&v!=null)e.setAttribute(k,v)}
@@ -390,7 +390,7 @@ var fT=function(d){return new Date(d).toLocaleTimeString('en-NG',{hour:'numeric'
 var fDT=function(d){return fD(d)+', '+fT(d)};
 var user,me,isAdmin=false,cur='home',names={};
 var SITE='https://gmtinternationalchurch.vercel.app/',GIVE=SITE+'give.html';
-var APP_URL='';/* set to the live address of this app, e.g. https://gmt-app.vercel.app/ */
+var APP_URL='https://gmt-mobile-app.vercel.app/';/* set to the live address of this app, e.g. https://gmt-app.vercel.app/ */
 function q(p){return p.then(function(r){if(r.error)throw r.error;return r.data||[]})}
 function note(el,t,c){el.textContent=t||'';el.className='pt-msg'+(c?' '+c:'')}
 function busy(b,t){b.dataset.t=b.dataset.t||b.textContent;b.disabled=true;b.textContent=t}
@@ -637,7 +637,7 @@ $('#authForm').addEventListener('submit',function(e){e.preventDefault();
  if(!nm)return note(m,'Please enter your full name.','err');
  if(pw.length<8)return note(m,'Use at least 8 characters for your password.','err');
  busy(btn,'Creating account...');
- sb.auth.signUp({email:em,password:pw,options:{data:{full_name:nm,phone:ph}}}).then(function(r){idle(btn);
+ sb.auth.signUp({email:em,password:pw,options:{emailRedirectTo:APP_URL||(location.origin+location.pathname),data:{full_name:nm,phone:ph}}}).then(function(r){idle(btn);
   if(r.error)return note(m,friendly(r.error),'err');
   if(r.data&&r.data.session){sb.from('profiles').update({full_name:nm,phone:ph}).eq('id',r.data.user.id).then(function(){},function(){});return boot(r.data.session)}
   setMode('login');note($('#authMsg'),'Account created. Check your email to confirm it, then log in.','ok')}).catch(function(){offline(btn,m)})});
