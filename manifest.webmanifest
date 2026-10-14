@@ -7,7 +7,7 @@
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#0c0a09",
-  "theme_color": "#d42929",
+  "theme_color": "#5A1020",
   "icons": [
     { "src": "https://gmtinternationalchurch.vercel.app/images/3d49ab2c1202d97546a8ee8eabdb8dc4e959983e.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
   ]
